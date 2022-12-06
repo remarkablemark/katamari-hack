@@ -109,6 +109,14 @@ javascript:var i,s,ss=['https://remarkabl.org/katamari-hack/js/kh.js','https://a
       >, David Nufer, and David Truong, March 2011.
     </div>
 
+    <script>
+      var textarea = document.querySelector('textarea');
+      textarea.addEventListener('click', function () {
+        textarea.select();
+        document.execCommand('copy');
+      });
+    </script>
+
     <script
       data-href="https://github.com/remarkablemark/katamari-hack"
       data-target="_blank"
