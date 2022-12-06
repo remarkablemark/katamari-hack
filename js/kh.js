@@ -765,8 +765,8 @@ z-index:501;';
 Katamari!</a></h1>\
 <button style="position:absolute;top:0;right:0;">X</button>\
 <p>Controls: Hold down <b><select id="mouseb">\
-<option value="0">Left-Click</option>\
-<option value="2" selected="selected">Right-Click</option>\
+<option value="0" selected="selected">Left-Click</option>\
+<option value="2">Right-Click</option>\
 <option value="-5">Touch</option>\
 </select></b> to control the ball!</p>\
 <div><label>Background Music? \
