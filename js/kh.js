@@ -1,9 +1,10 @@
-/*
-Copyright Alex Leone, David Nufer, David Truong, 2011-03-11. kathack.com
-
-javascript:var i,s,ss=['https://remarkabl.org/katamari-hack/js/kh.js','http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);
-
-*/
+/**
+ * Copyright Alex Leone, David Nufer, David Truong, 2011-03-11. kathack.com
+ *
+ * ```js
+ * javascript:var i,s,ss=['https://remarkabl.org/katamari-hack/js/kh.js','https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);
+ * ```
+ */
 var BORDER_STYLE = "1px solid #bbb",
     CSS_TRANSFORM = null,
     CSS_TRANSFORM_ORIGIN = null,
