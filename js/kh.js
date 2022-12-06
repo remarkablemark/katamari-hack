@@ -891,11 +891,14 @@ function whenAllLoaded(gameDiv, popup, stickyNodes) {
       bgmusic.play();
     }
     ballOpts = {
-      color: jQuery('#khcolor').val(),
-      VOL_MULT: parseFloat(jQuery('#vol_mult').val()),
-      MAX_ATTACHED_VISIBLE: parseInt(jQuery('#maxAtt').val(), 10),
-      CHECK_VOLS: jQuery('#checkv').attr('checked') ? true : false,
-      MOUSEB: parseInt(jQuery('#mouseb').val(), 10),
+      color: document.getElementById('khcolor').value,
+      VOL_MULT: parseFloat(document.getElementById('vol_mult').value),
+      MAX_ATTACHED_VISIBLE: parseInt(
+        document.getElementById('maxAtt').value,
+        10
+      ),
+      CHECK_VOLS: document.getElementById('checkv').checked,
+      MOUSEB: parseInt(document.getElementById('mouseb').value, 10),
     };
     gameDiv.removeChild(popup);
     game = new Game(gameDiv, stickyNodes, ballOpts);
