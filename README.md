@@ -1,5 +1,5 @@
 # Katamari Hack
 
-Katamari Hack from [kathack.com](http://kathack.com/).
+Katamari Hack
 
-Created by Alex Leone, David Nufer, and David Truong, March 2011.
+Copyright Alex Leone, David Nufer, David Truong, 2011-03-11. [kathack.com](http://kathack.com/)
