@@ -847,7 +847,7 @@ function whenAllLoaded(gameDiv, popup, stickyNodes) {
   jQuery('<button>Start!</button>')
     .click(function () {
       var game, bgmusic, ballOpts;
-      if (jQuery('#bgmusicc').attr('checked')) {
+      if (document.getElementById('bgmusicc').checked) {
         if (!(bgmusic = document.getElementById('khbgmusic'))) {
           bgmusic = document.createElement('audio');
           bgmusic.id = 'khbgmusic';
