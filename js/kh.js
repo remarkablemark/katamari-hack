@@ -870,34 +870,38 @@ function Game(gameDiv, stickyNodes, ballOpts) {
 
 function whenAllLoaded(gameDiv, popup, stickyNodes) {
   stickyNodes.finalize(documentWidth(), documentHeight());
-  jQuery('#loadingp').empty();
-  jQuery('<button>Start!</button>')
-    .click(function () {
-      var game;
-      var bgmusic;
-      var ballOpts;
+  var loading = document.getElementById('loadingp');
+  loading.innerHTML = '';
 
-      if (document.getElementById('bgmusicc').checked) {
-        if (!(bgmusic = document.getElementById('khbgmusic'))) {
-          bgmusic = document.createElement('audio');
-          bgmusic.id = 'khbgmusic';
-          bgmusic.loop = 'loop';
-          bgmusic.src = BASE_URL + 'js/katamari.mp3';
-          gameDiv.appendChild(bgmusic);
-        }
-        bgmusic.play();
+  var button = document.createElement('button');
+  button.innerText = 'Start!';
+  button.addEventListener('click', function () {
+    var game;
+    var bgmusic;
+    var ballOpts;
+
+    if (document.getElementById('bgmusicc').checked) {
+      if (!(bgmusic = document.getElementById('khbgmusic'))) {
+        bgmusic = document.createElement('audio');
+        bgmusic.id = 'khbgmusic';
+        bgmusic.loop = 'loop';
+        bgmusic.src = BASE_URL + 'js/katamari.mp3';
+        gameDiv.appendChild(bgmusic);
       }
-      ballOpts = {
-        color: jQuery('#khcolor').val(),
-        VOL_MULT: parseFloat(jQuery('#vol_mult').val()),
-        MAX_ATTACHED_VISIBLE: parseInt(jQuery('#maxAtt').val(), 10),
-        CHECK_VOLS: jQuery('#checkv').attr('checked') ? true : false,
-        MOUSEB: parseInt(jQuery('#mouseb').val(), 10),
-      };
-      gameDiv.removeChild(popup);
-      game = new Game(gameDiv, stickyNodes, ballOpts);
-    })
-    .appendTo('#loadingp');
+      bgmusic.play();
+    }
+    ballOpts = {
+      color: jQuery('#khcolor').val(),
+      VOL_MULT: parseFloat(jQuery('#vol_mult').val()),
+      MAX_ATTACHED_VISIBLE: parseInt(jQuery('#maxAtt').val(), 10),
+      CHECK_VOLS: jQuery('#checkv').attr('checked') ? true : false,
+      MOUSEB: parseInt(jQuery('#mouseb').val(), 10),
+    };
+    gameDiv.removeChild(popup);
+    game = new Game(gameDiv, stickyNodes, ballOpts);
+  });
+
+  loading.appendChild(button);
 }
 
 function buildPopup(gameDiv) {
