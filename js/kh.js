@@ -5,11 +5,11 @@
  * javascript:var i,s,ss=['https://remarkabl.org/katamari-hack/js/kh.js','https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);
  * ```
  */
-var BORDER_STYLE = '1px solid #bbb',
-  CSS_TRANSFORM = null,
-  CSS_TRANSFORM_ORIGIN = null,
-  POSSIBLE_TRANSFORM_PREFIXES = ['-webkit-', '-moz-', '-o-', '-ms-', ''],
-  khFirst = false;
+var BORDER_STYLE = '1px solid #bbb';
+var CSS_TRANSFORM = null;
+var CSS_TRANSFORM_ORIGIN = null;
+var POSSIBLE_TRANSFORM_PREFIXES = ['-webkit-', '-moz-', '-o-', '-ms-', ''];
+var khFirst = false;
 
 /* When running twice on one page, update pick-uppable nodes instead of
  * creating more.
@@ -20,9 +20,10 @@ if (!window.khNodes) {
 }
 
 function getCssTransform() {
-  var i,
-    d = document.createElement('div'),
-    pre;
+  var i;
+  var d = document.createElement('div');
+  var pre;
+
   for (i = 0; i < POSSIBLE_TRANSFORM_PREFIXES.length; i++) {
     pre = POSSIBLE_TRANSFORM_PREFIXES[i];
     d.style.setProperty(pre + 'transform', 'rotate(1rad) scaleX(2)', null);
@@ -46,7 +47,9 @@ getCssTransform();
  * 6  |   7   |   9
  */
 function circleGridObjInt(cx, cy, cr, cr2, go) {
-  var dx, dy;
+  var dx;
+  var dy;
+
   if (cx < go.left) {
     dx = go.left - cx;
     if (cy < go.top) {
@@ -98,7 +101,9 @@ function circleGridObjInt(cx, cy, cr, cr2, go) {
  * 6  |   7   |   9
  */
 function getClosestPoint(cx, cy, go) {
-  var dx, dy;
+  var dx;
+  var dy;
+
   if (cx < go.left) {
     dx = go.left - cx;
     if (cy < go.top) {
@@ -145,43 +150,43 @@ function gridObjVol(go) {
 }
 
 function StickyNodes() {
-  var domNodes = [],
-    grid = [],
-    GRIDX = 100,
-    GRIDY = 100,
-    REPLACE_WORDS_IN = {
-      a: 1,
-      b: 1,
-      big: 1,
-      body: 1,
-      cite: 1,
-      code: 1,
-      dd: 1,
-      div: 1,
-      dt: 1,
-      em: 1,
-      font: 1,
-      h1: 1,
-      h2: 1,
-      h3: 1,
-      h4: 1,
-      h5: 1,
-      h6: 1,
-      i: 1,
-      label: 1,
-      legend: 1,
-      li: 1,
-      p: 1,
-      pre: 1,
-      small: 1,
-      span: 1,
-      strong: 1,
-      sub: 1,
-      sup: 1,
-      td: 1,
-      th: 1,
-      tt: 1,
-    };
+  var domNodes = [];
+  var grid = [];
+  var GRIDX = 100;
+  var GRIDY = 100;
+  var REPLACE_WORDS_IN = {
+    a: 1,
+    b: 1,
+    big: 1,
+    body: 1,
+    cite: 1,
+    code: 1,
+    dd: 1,
+    div: 1,
+    dt: 1,
+    em: 1,
+    font: 1,
+    h1: 1,
+    h2: 1,
+    h3: 1,
+    h4: 1,
+    h5: 1,
+    h6: 1,
+    i: 1,
+    label: 1,
+    legend: 1,
+    li: 1,
+    p: 1,
+    pre: 1,
+    small: 1,
+    span: 1,
+    strong: 1,
+    sub: 1,
+    sup: 1,
+    td: 1,
+    th: 1,
+    tt: 1,
+  };
 
   function addDomNode(el) {
     if (el !== undefined && el !== null) {
@@ -200,7 +205,9 @@ function StickyNodes() {
     }
 
     function buildTextEls(el, shouldAdd) {
-      var i, len;
+      var i;
+      var len;
+
       if (
         shouldAdd &&
         el.nodeType === Node.TEXT_NODE &&
@@ -219,12 +226,13 @@ function StickyNodes() {
     }
 
     function wordsToSpans(textEl) {
-      var p = textEl.parentNode,
-        words = textEl.nodeValue.split(/\s+/),
-        ws = textEl.nodeValue.split(/\S+/),
-        i,
-        n,
-        len = Math.max(words.length, ws.length);
+      var p = textEl.parentNode;
+      var words = textEl.nodeValue.split(/\s+/);
+      var ws = textEl.nodeValue.split(/\S+/);
+      var i;
+      var n;
+      var len = Math.max(words.length, ws.length);
+
       /* preserve whitespace for pre tags. */
       if (ws.length > 0 && ws[0].length === 0) {
         ws.shift();
@@ -250,11 +258,12 @@ function StickyNodes() {
 
   /* includes el. */
   this.addTagNames = function (el, tagNames) {
-    var tname = el.tagName && el.tagName.toLowerCase(),
-      i,
-      j,
-      els,
-      len;
+    var tname = el.tagName && el.tagName.toLowerCase();
+    var i;
+    var j;
+    var els;
+    var len;
+
     if (el.khIgnore) {
       return;
     }
@@ -275,19 +284,20 @@ function StickyNodes() {
   };
 
   this.finalize = function (docW, docH) {
-    var xi,
-      yi,
-      i,
-      len,
-      startXI,
-      startYI,
-      el,
-      go,
-      off,
-      w,
-      h,
-      endXI = Math.floor(docW / GRIDX) + 1,
-      endYI = Math.floor(docH / GRIDY) + 1;
+    var xi;
+    var yi;
+    var i;
+    var len;
+    var startXI;
+    var startYI;
+    var el;
+    var go;
+    var off;
+    var w;
+    var h;
+    var endXI = Math.floor(docW / GRIDX) + 1;
+    var endYI = Math.floor(docH / GRIDY) + 1;
+
     /* initialize grid. */
     grid = new Array(endXI);
     for (xi = 0; xi < endXI; xi++) {
@@ -341,6 +351,7 @@ function StickyNodes() {
 
   function removeGridObj(go) {
     var i;
+
     for (i = 0; i < go.arrs.length; i++) {
       go.arrs[i][go.idxs[i]] = undefined;
     }
@@ -354,16 +365,17 @@ function StickyNodes() {
    * cb(gridObj) -> boolean true if the object should be removed.
    */
   this.removeIntersecting = function (x, y, r, cb) {
-    var xi,
-      yi,
-      arr,
-      i,
-      r2 = r * r,
-      go,
-      startXI = Math.floor((x - r) / GRIDX),
-      startYI = Math.floor((y - r) / GRIDY),
-      endXI = Math.floor((x + r) / GRIDX) + 1,
-      endYI = Math.floor((y + r) / GRIDY) + 1;
+    var xi;
+    var yi;
+    var arr;
+    var i;
+    var r2 = r * r;
+    var go;
+    var startXI = Math.floor((x - r) / GRIDX);
+    var startYI = Math.floor((y - r) / GRIDY);
+    var endXI = Math.floor((x + r) / GRIDX) + 1;
+    var endYI = Math.floor((y + r) / GRIDY) + 1;
+
     for (xi = startXI; xi < endXI; xi++) {
       if (grid[xi] === undefined) {
         continue;
@@ -385,40 +397,41 @@ function StickyNodes() {
 }
 
 function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
-  var x = 300,
-    y = 300,
-    vx = 0,
-    vy = 0,
-    radius = 20,
-    lastR = 0 /**< optimization: only resize when necessary. */,
-    docW = 10000,
-    docH = 10000,
-    attached = [],
-    attachedDiv /* div to put attached nodes into. */,
-    canvas_el,
-    canvas_ctx,
-    color = ballOpts.color,
-    accelTargetX = 0,
-    accelTargetY = 0,
-    accel = false,
-    VOL_MULT = ballOpts.VOL_MULT,
-    MAX_ATTACHED_VISIBLE = ballOpts.MAX_ATTACHED_VISIBLE,
-    CHECK_VOLS = ballOpts.CHECK_VOLS,
-    /**
-     * which direction the ball is facing in the xy axis, in radians.
-     * th: 0 is facing dead East
-     * th: 1/2 PI is facing dead South
-     * note that this is like regular th on a graph with y inverted.
-     * Same rotation as css transform.
-     */
-    th = 0,
+  var x = 300;
+  var y = 300;
+  var vx = 0;
+  var vy = 0;
+  var radius = 20;
+  var lastR = 0; /**< optimization: only resize when necessary. */
+  var docW = 10000;
+  var docH = 10000;
+  var attached = [];
+  var attachedDiv; /* div to put attached nodes into. */
+  var canvas_el;
+  var canvas_ctx;
+  var color = ballOpts.color;
+  var accelTargetX = 0;
+  var accelTargetY = 0;
+  var accel = false;
+  var VOL_MULT = ballOpts.VOL_MULT;
+  var MAX_ATTACHED_VISIBLE = ballOpts.MAX_ATTACHED_VISIBLE;
+  var CHECK_VOLS = ballOpts.CHECK_VOLS;
+
+  /**
+   * which direction the ball is facing in the xy axis, in radians.
+   * th: 0 is facing dead East
+   * th: 1/2 PI is facing dead South
+   * note that this is like regular th on a graph with y inverted.
+   * Same rotation as css transform.
+   */
+  (th = 0),
     /**
      * Ball angle in the rotation axis / z plane, in radians.
      * phi: 0 is pointing in the direction the ball is rolling.
      * phi: 1/2 PI is pointing straight up (out of the page).
      * note that forward rotation means phi -= 0.1.
      */
-    phi = 0;
+    (phi = 0);
 
   this.init = function () {
     canvas_el = document.createElement('canvas');
@@ -499,39 +512,40 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
   }
 
   function attachGridObj(go) {
-    var attXY = getClosestPoint(x, y, go),
-      dx = attXY[0] - x,
-      dy = attXY[1] - y,
-      r = Math.sqrt(dx * dx + dy * dy),
-      attTh = 0 - th,
-      offLeft = attXY[0] - go.left,
-      offTop = attXY[1] - go.top,
-      offTh = Math.atan2(dy, dx) - th,
-      attX = r * Math.cos(offTh),
-      attY = r * Math.sin(offTh),
-      el = go.el.cloneNode(true),
-      go_jel = jQuery(go.el),
-      newAtt = {
-        el: el,
-        attX: attX,
-        attY: attY,
-        attT:
-          'translate(' +
-          Math.round(attX) +
-          'px,' +
-          Math.round(attY) +
-          'px) ' +
-          'rotate(' +
-          attTh +
-          'rad)',
-        r: r,
-        offTh: offTh,
-        offPhi: 0 - phi,
-        diag: go.diag,
-        removeR: r + go.diag,
-        visible: false,
-        display: go_jel.css('display'),
-      };
+    var attXY = getClosestPoint(x, y, go);
+    var dx = attXY[0] - x;
+    var dy = attXY[1] - y;
+    var r = Math.sqrt(dx * dx + dy * dy);
+    var attTh = 0 - th;
+    var offLeft = attXY[0] - go.left;
+    var offTop = attXY[1] - go.top;
+    var offTh = Math.atan2(dy, dx) - th;
+    var attX = r * Math.cos(offTh);
+    var attY = r * Math.sin(offTh);
+    var el = go.el.cloneNode(true);
+    var go_jel = jQuery(go.el);
+    var newAtt = {
+      el: el,
+      attX: attX,
+      attY: attY,
+      attT:
+        'translate(' +
+        Math.round(attX) +
+        'px,' +
+        Math.round(attY) +
+        'px) ' +
+        'rotate(' +
+        attTh +
+        'rad)',
+      r: r,
+      offTh: offTh,
+      offPhi: 0 - phi,
+      diag: go.diag,
+      removeR: r + go.diag,
+      visible: false,
+      display: go_jel.css('display'),
+    };
+
     attached.push(newAtt);
     grow(go);
     el.style.position = 'absolute';
@@ -567,12 +581,13 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
   }
 
   this.updatePhysics = function () {
-    var oldX = x,
-      oldY = y,
-      dx,
-      dy,
-      bounce = false,
-      accelTh;
+    var oldX = x;
+    var oldY = y;
+    var dx;
+    var dy;
+    var bounce = false;
+    var accelTh;
+
     if (accel) {
       accelTh = Math.atan2(accelTargetY - y, accelTargetX - x);
       vx += Math.cos(accelTh) * 0.5;
@@ -617,7 +632,18 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
   };
 
   function drawBall() {
-    var sx1, sy1, sx2, sy2, dx, dy, i, pct1, pct2, z1, z2;
+    var sx1;
+    var sy1;
+    var sx2;
+    var sy2;
+    var dx;
+    var dy;
+    var i;
+    var pct1;
+    var pct2;
+    var z1;
+    var z2;
+
     /* move/resize canvas element. */
     canvas_el.style.left = x - radius + 'px';
     canvas_el.style.top = y - radius + 'px';
@@ -665,16 +691,17 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
    * @return true if the attached object is roughly visible.
    */
   function drawAttached(att) {
-    var oth = th + att.offTh,
-      ophi = phi + att.offPhi,
-      ox = att.r * Math.cos(oth),
-      oy = att.r * Math.sin(oth),
-      dx = att.r * Math.cos(th - att.offTh + Math.PI) - ox,
-      dy = att.r * Math.sin(th - att.offTh + Math.PI) - oy,
-      pct = (-Math.cos(ophi) + 1) / 2,
-      cx = ox + pct * dx,
-      cy = oy + pct * dy,
-      oz = att.r * Math.sin(ophi);
+    var oth = th + att.offTh;
+    var ophi = phi + att.offPhi;
+    var ox = att.r * Math.cos(oth);
+    var oy = att.r * Math.sin(oth);
+    var dx = att.r * Math.cos(th - att.offTh + Math.PI) - ox;
+    var dy = att.r * Math.sin(th - att.offTh + Math.PI) - oy;
+    var pct = (-Math.cos(ophi) + 1) / 2;
+    var cx = ox + pct * dx;
+    var cy = oy + pct * dy;
+    var oz = att.r * Math.sin(ophi);
+
     if (oz < 0 && Math.sqrt(cx * cx + cy * cy) + att.diag < radius) {
       /* hidden behind circle. */
       if (att.visible) {
@@ -715,9 +742,10 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
   }
 
   this.draw = function () {
-    var i,
-      att,
-      numAttachedVisible = 0;
+    var i;
+    var att;
+    var numAttachedVisible = 0;
+
     drawBall();
     for (i = attached.length; --i >= 0; ) {
       att = attached[i];
@@ -741,11 +769,12 @@ function preventDefault(event) {
 }
 
 function Game(gameDiv, stickyNodes, ballOpts) {
-  var stickyNodes,
-    player1,
-    physicsInterval,
-    resizeInterval,
-    listeners = [];
+  var stickyNodes;
+  var player1;
+  var physicsInterval;
+  var resizeInterval;
+  var listeners = [];
+
   player1 = new PlayerBall(gameDiv, stickyNodes, ballOpts, false);
   player1.init();
   player1.setXY(300, 300);
@@ -846,7 +875,10 @@ function whenAllLoaded(gameDiv, popup, stickyNodes) {
   jQuery('#loadingp').empty();
   jQuery('<button>Start!</button>')
     .click(function () {
-      var game, bgmusic, ballOpts;
+      var game;
+      var bgmusic;
+      var ballOpts;
+
       if (document.getElementById('bgmusicc').checked) {
         if (!(bgmusic = document.getElementById('khbgmusic'))) {
           bgmusic = document.createElement('audio');
@@ -871,8 +903,9 @@ function whenAllLoaded(gameDiv, popup, stickyNodes) {
 }
 
 function buildPopup(gameDiv) {
-  var d = document.createElement('div'),
-    b;
+  var d = document.createElement('div');
+  var b;
+
   d.style.cssText =
     '\
 position: fixed;\
@@ -933,7 +966,10 @@ Realistic Pickups? <input id="checkv" type="checkbox" checked="checked" />\
 }
 
 function main() {
-  var gameDiv, checkInterval, stickyNodes, popup;
+  var gameDiv;
+  var checkInterval;
+  var stickyNodes;
+  var popup;
 
   gameDiv = document.createElement('div');
   gameDiv.khIgnore = true;
@@ -942,7 +978,10 @@ function main() {
 
   /* setTimeout so that the popup displays before we freeze. */
   setTimeout(function () {
-    var i, len, el;
+    var i;
+    var len;
+    var el;
+
     window.khNodes.addWords(document.body);
     for (i = 0, len = document.body.childNodes.length; i < len; i++) {
       el = document.body.childNodes[i];
