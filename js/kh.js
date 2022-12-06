@@ -10,6 +10,7 @@ var CSS_TRANSFORM = null;
 var CSS_TRANSFORM_ORIGIN = null;
 var POSSIBLE_TRANSFORM_PREFIXES = ['-webkit-', '-moz-', '-o-', '-ms-', ''];
 var khFirst = false;
+var BASE_URL = 'https://remarkabl.org/katamari-hack/';
 
 /* When running twice on one page, update pick-uppable nodes instead of
  * creating more.
@@ -884,7 +885,7 @@ function whenAllLoaded(gameDiv, popup, stickyNodes) {
           bgmusic = document.createElement('audio');
           bgmusic.id = 'khbgmusic';
           bgmusic.loop = 'loop';
-          bgmusic.src = 'https://remarkabl.org/katamari-hack/js/katamari.mp3';
+          bgmusic.src = BASE_URL + 'js/katamari.mp3';
           gameDiv.appendChild(bgmusic);
         }
         bgmusic.play();
