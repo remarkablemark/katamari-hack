@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>Katamari Hack</title>
+		<style type="text/css">
+			body {
+				font-family: sans-serif;
+				width: 700px;
+				margin: 20px auto;
+			}
+			#footer {
+			    text-align: center;
+			    margin-top: 30px;
+			    color: gray;
+			    font-size: 80%;
+		    }
+		    #footer a {
+		        color: gray;
+		        text-decoration: none;
+	        }
+            h2 {
+                margin-top: 30px;
+            }
+		</style>
+		<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-5139113-5']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+	</head>
+	<body>
+	    <h1>Katamari Hack</h1>
+		<p>Drag this link to your bookmarks bar: 
+		   <a href="javascript:var%20i,s,ss=['http://kathack.com/js/kh.js','http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);"
+		      title="Katamari!">Katamari!</a>
+		</p>
+        <p>Or copy and paste this url into the location bar on any site:</p>
+        <p>
+            <textarea rows="7" cols="70">javascript:var i,s,ss=['http://kathack.com/js/kh.js','http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);</textarea>
+        </p>
+        <p>(works best in chrome or firefox 4)</p>
+		<h2>What is this?</h2>
+		<p>This is a "bookmarklet" that turns any page into
+		    <a href="http://en.wikipedia.org/wiki/Katamari_Damacy" target="_blank">Katamari Damacy</a>.
+            Try clicking the Katamari! link above.
+	    </p>
+        <p>This was the winner of the 2011 Yahoo HackU contest at
+            University of Washington.</p>
+        <h2>How does it work?</h2>
+        <p>Short version: css transforms (for things stuck to the katamari),
+            canvas (drawing the katamari), and z-index (illusion of depth).</p>
+        <p>Long version: The bookmarklet loads jQuery and <a href="js/kh.js">kh.js</a> into
+            the current page. jQuery is used mostly for <code>.offset()</code> and <code>.css()</code>.
+            &nbsp;kh.js is where all the action happens:
+            <ul>
+                <li>Splits all the text on the page into words/spans.
+                (<code>StickyNodes::addWords</code>)</li>
+                <li>Builds a grid data structure so that intersections with
+                    elements can be found quickly (<code>StickyNodes::finalize</code>).
+                    Essentially <code>grid[floor(x / 100)][floor(y / 100)]</code>
+                    is a list of elements in a 100x100 pixel block.
+                    This should probably be an <a href="http://en.wikipedia.org/wiki/R-tree">R-tree</a>,
+                    but the hot-spot in this program is definitely in the rendering.</li>
+                <li>The ball and stripes are drawn in a canvas that gets moved
+                    around the page (i.e. <code>position: absolute; left: x; top: y;</code>).
+                    See <code>PlayerBall::drawBall</code>.</li>
+                <li>When an element is attached to the katamari, a clone is made.
+                    The original element is hidden.  The new element is moved
+                    around by setting <code>-webkit-transform</code>.
+                    The transform rotates the element about the rolling axis
+                    of the katamari and scales the element to make it look like
+                    it's coming out of the page.
+                    See <code>PlayerBall::drawAttached</code>,
+                    <a href="transform_test.html">transform_test.html</a>, and
+                    <a href="transform_test2.html">transform_test2.html</a>.</li>
+            </ul>
+        </p>
+		<div id="footer">
+		    Created by
+		    <a href="http://students.washington.edu/acleone/" target="_blank">Alex Leone</a>,
+		    David Nufer, and David Truong, March 2011.
+	    </div>
+	</body>
+</html>
