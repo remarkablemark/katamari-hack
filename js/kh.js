@@ -782,10 +782,7 @@ function Game(gameDiv, stickyNodes, ballOpts) {
   window.scrollTo(0, 200);
 
   function on_resize() {
-    player1.setDocSize(
-      jQuery(document).width() - 5,
-      jQuery(document).height() - 5
-    );
+    player1.setDocSize(documentWidth() - 5, documentHeight() - 5);
   }
   on_resize();
 
@@ -872,7 +869,7 @@ function Game(gameDiv, stickyNodes, ballOpts) {
 }
 
 function whenAllLoaded(gameDiv, popup, stickyNodes) {
-  stickyNodes.finalize(jQuery(document).width(), jQuery(document).height());
+  stickyNodes.finalize(documentWidth(), documentHeight());
   jQuery('#loadingp').empty();
   jQuery('<button>Start!</button>')
     .click(function () {
@@ -1004,6 +1001,24 @@ function main() {
       }
     }, 100);
   }, 0);
+}
+
+/**
+ * Get document width.
+ *
+ * @returns {number}
+ */
+function documentWidth() {
+  return window.innerWidth || document.documentElement.clientWidth;
+}
+
+/**
+ * Get document height.
+ *
+ * @returns {number}
+ */
+function documentHeight() {
+  return window.innerHeight || document.documentElement.clientHeight;
 }
 
 if (!window.noMain) {
