@@ -150,6 +150,9 @@ function gridObjVol(go) {
   return go.w * go.h * Math.min(go.w, go.h);
 }
 
+/**
+ * @class
+ */
 function StickyNodes() {
   var domNodes = [];
   var grid = [];
@@ -189,40 +192,53 @@ function StickyNodes() {
     tt: 1
   };
 
-  function addDomNode(el) {
-    if (el !== undefined && el !== null) {
-      el.khIgnore = true;
-      el.style.border = BORDER_STYLE;
-      domNodes.push(el);
+  /**
+   * Add DOM node.
+   *
+   * @param {HTMLElement} element
+   * @returns {void}
+   */
+  function addDomNode(element) {
+    if (element) {
+      element.khIgnore = true;
+      element.style.border = BORDER_STYLE;
+      domNodes.push(element);
     }
   }
+
   this.addDomNode = addDomNode;
 
-  this.addWords = function (el) {
+  /**
+   * Add words.
+   *
+   * @param {HTMLElement} element
+   * @returns {void}
+   */
+  this.addWords = function (element) {
     var textEls = [];
 
-    function shouldAddChildren(el) {
-      return el.tagName && REPLACE_WORDS_IN[el.tagName.toLowerCase()];
+    function shouldAddChildren(element) {
+      return element.tagName && REPLACE_WORDS_IN[element.tagName.toLowerCase()];
     }
 
-    function buildTextEls(el, shouldAdd) {
+    function buildTextEls(element, shouldAdd) {
       var i;
       var len;
 
       if (
         shouldAdd &&
-        el.nodeType === Node.TEXT_NODE &&
-        el.nodeValue.trim().length > 0
+        element.nodeType === Node.TEXT_NODE &&
+        element.nodeValue.trim().length > 0
       ) {
-        textEls.push(el);
+        textEls.push(element);
         return;
       }
-      if (!el.childNodes || el.khIgnore) {
+      if (!element.childNodes || element.khIgnore) {
         return;
       }
-      shouldAdd = shouldAddChildren(el);
-      for (i = 0, len = el.childNodes.length; i < len; i++) {
-        buildTextEls(el.childNodes[i], shouldAdd);
+      shouldAdd = shouldAddChildren(element);
+      for (i = 0, len = element.childNodes.length; i < len; i++) {
+        buildTextEls(element.childNodes[i], shouldAdd);
       }
     }
 
@@ -253,29 +269,38 @@ function StickyNodes() {
       p.removeChild(textEl);
     }
 
-    buildTextEls(el, shouldAddChildren(el));
+    buildTextEls(element, shouldAddChildren(element));
     textEls.map(wordsToSpans);
   };
 
-  /* includes el. */
-  this.addTagNames = function (el, tagNames) {
-    var tname = el.tagName && el.tagName.toLowerCase();
+  /**
+   * Add tag names.
+   *
+   * @param {HTMLElement} element
+   * @param {string[]} tagNames
+   * @returns {void}
+   */
+  this.addTagNames = function (element, tagNames) {
+    var tname = element.tagName && element.tagName.toLowerCase();
     var i;
     var j;
     var els;
     var len;
 
-    if (el.khIgnore) {
+    if (element.khIgnore) {
       return;
     }
+
     if (tagNames.indexOf(tname) !== -1) {
-      addDomNode(el);
+      addDomNode(element);
     }
-    if (!el.getElementsByTagName) {
+
+    if (!element.getElementsByTagName) {
       return;
     }
+
     for (i = 0; i < tagNames.length; i++) {
-      els = el.getElementsByTagName(tagNames[i]);
+      els = element.getElementsByTagName(tagNames[i]);
       for (j = 0, len = els.length; j < len; j++) {
         if (!els[j].khIgnore) {
           addDomNode(els[j]);
@@ -316,7 +341,7 @@ function StickyNodes() {
 
       go = {
         // dom element
-        el: domNodes[i],
+        element: domNodes[i],
         left: element.offsetLeft,
         right: element.offsetLeft + rect.width,
         top: element.offsetTop,
@@ -367,8 +392,8 @@ function StickyNodes() {
     for (i = 0; i < go.arrs.length; i++) {
       go.arrs[i][go.idxs[i]] = undefined;
     }
-    go.el.style.visibility = 'hidden';
-    go.el.khPicked = true;
+    go.element.style.visibility = 'hidden';
+    go.element.khPicked = true;
     delete go.arrs;
     delete go.idxs;
   }
@@ -534,11 +559,11 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
     var offTh = Math.atan2(dy, dx) - th;
     var attX = r * Math.cos(offTh);
     var attY = r * Math.sin(offTh);
-    var element = go.el.cloneNode(true);
-    var style = getComputedStyle(go.el);
+    var element = go.element.cloneNode(true);
+    var style = getComputedStyle(go.element);
 
     var newAtt = {
-      el: element,
+      element: element,
       attX: attX,
       attY: attY,
       attT:
@@ -722,18 +747,18 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
       /* hidden behind circle. */
       if (att.visible) {
         att.visible = false;
-        att.el.style.display = 'none';
+        att.element.style.display = 'none';
       }
       return false;
     }
     /* attached node is visible. */
     if (!att.visible) {
       att.visible = true;
-      att.el.style.display = att.display;
+      att.element.style.display = att.display;
     }
-    //att.el.style.zIndex = 500 + Math.round(oz);
-    att.el.style.zIndex = oz > 0 ? 501 : 499;
-    att.el.style.setProperty(
+    //att.element.style.zIndex = 500 + Math.round(oz);
+    att.element.style.zIndex = oz > 0 ? 501 : 499;
+    att.element.style.setProperty(
       CSS_TRANSFORM,
       'translate(' +
         x +
@@ -753,8 +778,8 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
   }
 
   function onAttachedRemoved(att) {
-    attachedDiv.removeChild(att.el);
-    delete att.el;
+    attachedDiv.removeChild(att.element);
+    delete att.element;
   }
 
   this.draw = function () {
@@ -1012,6 +1037,11 @@ Realistic Pickups? <input id="checkv" type="checkbox" checked="checked" />\
   return popup;
 }
 
+/**
+ * Main.
+ *
+ * @returns {void}
+ */
 function main() {
   var gameDiv;
   var checkInterval;
@@ -1023,16 +1053,16 @@ function main() {
   document.body.appendChild(gameDiv);
   popup = buildPopup(gameDiv);
 
-  /* setTimeout so that the popup displays before we freeze. */
+  // setTimeout so that the popup displays before we freeze
   setTimeout(function () {
     var i;
     var len;
-    var el;
+    var element;
 
     window.khNodes.addWords(document.body);
     for (i = 0, len = document.body.childNodes.length; i < len; i++) {
-      el = document.body.childNodes[i];
-      window.khNodes.addTagNames(el, [
+      element = document.body.childNodes[i];
+      window.khNodes.addTagNames(element, [
         'button',
         'canvas',
         'iframe',
