@@ -883,14 +883,31 @@ function Game(gameDiv, stickyNodes, ballOpts) {
   resizeInterval = setInterval(on_resize, 1000);
 }
 
+/**
+ * When all loaded.
+ *
+ * @param {HTMLElement} gameDiv
+ * @param {HTMLElement} popup
+ * @param {StickyNodes} stickyNodes
+ * @returns {void}
+ */
 function whenAllLoaded(gameDiv, popup, stickyNodes) {
   stickyNodes.finalize(documentWidth(), documentHeight());
+
   var loading = document.getElementById('loadingp');
   loading.innerHTML = '';
 
-  var button = document.createElement('button');
-  button.innerText = 'Start!';
-  button.addEventListener('click', function () {
+  var reloadButton = document.createElement('button');
+  reloadButton.innerText = 'Reload';
+  reloadButton.addEventListener('click', function () {
+    stickyNodes.finalize(documentWidth(), documentHeight());
+  });
+
+  var startButton = document.createElement('button');
+  startButton.innerText = 'Start!';
+  startButton.style.marginRight = '4px';
+
+  startButton.addEventListener('click', function () {
     var game;
     var bgmusic;
     var ballOpts;
@@ -919,7 +936,9 @@ function whenAllLoaded(gameDiv, popup, stickyNodes) {
     game = new Game(gameDiv, stickyNodes, ballOpts);
   });
 
-  loading.appendChild(button);
+  [startButton, reloadButton].forEach(function (button) {
+    loading.appendChild(button);
+  });
 }
 
 /**
