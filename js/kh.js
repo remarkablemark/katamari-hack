@@ -20,27 +20,36 @@ if (!window.khNodes) {
   window.khNodes = new StickyNodes();
 }
 
+/**
+ * Get CSS transform.
+ *
+ * @returns {void}
+ */
 function getCssTransform() {
-  var i;
-  var d = document.createElement('div');
+  var index;
+  var div = document.createElement('div');
   var pre;
+  var error = "Your browser doesn't support CSS tranforms!";
 
-  for (i = 0; i < POSSIBLE_TRANSFORM_PREFIXES.length; i++) {
-    pre = POSSIBLE_TRANSFORM_PREFIXES[i];
-    d.style.setProperty(pre + 'transform', 'rotate(1rad) scaleX(2)', null);
-    if (d.style.getPropertyValue(pre + 'transform')) {
+  for (index = 0; index < POSSIBLE_TRANSFORM_PREFIXES.length; index++) {
+    pre = POSSIBLE_TRANSFORM_PREFIXES[index];
+    div.style.setProperty(pre + 'transform', 'rotate(1rad) scaleX(2)', null);
+    if (div.style.getPropertyValue(pre + 'transform')) {
       CSS_TRANSFORM = pre + 'transform';
       CSS_TRANSFORM_ORIGIN = pre + 'transform-origin';
       return;
     }
   }
-  alert("Your browser doesn't support CSS tranforms!");
-  throw "Your browser doesn't support CSS tranforms!";
+
+  alert(error);
+  throw error;
 }
+
 getCssTransform();
 
 /**
  * Returns true if the circle intersects the element rectangle.
+ *
  * 0  |   1   |   2
  * ------------------
  * 3  |   4   |   5
@@ -95,6 +104,7 @@ function circleGridObjInt(cx, cy, cr, cr2, go) {
 
 /**
  * Returns [x,y] where the rectangle is closest to (cx, cy).
+ *
  * 0  |   1   |   2
  * ------------------
  * 3  |   4   |   5
