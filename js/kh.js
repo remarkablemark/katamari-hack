@@ -186,7 +186,7 @@ function StickyNodes() {
     sup: 1,
     td: 1,
     th: 1,
-    tt: 1,
+    tt: 1
   };
 
   function addDomNode(el) {
@@ -334,7 +334,7 @@ function StickyNodes() {
 
         // these are for removing ourselves from the grid
         arrs: [], // which arrays we're in (grid[x][y])
-        idxs: [], // what indexes
+        idxs: [] // what indexes
       };
 
       startXI = Math.floor(go.left / GRIDX);
@@ -469,7 +469,7 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
       vy: vy,
       radius: radius,
       th: th,
-      phi: phi,
+      phi: phi
     };
   };
 
@@ -555,7 +555,7 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
       diag: go.diag,
       removeR: r + go.diag,
       visible: false,
-      display: go_jel.css('display'),
+      display: go_jel.css('display')
     };
 
     attached.push(newAtt);
@@ -909,7 +909,7 @@ function whenAllLoaded(gameDiv, popup, stickyNodes) {
         10
       ),
       CHECK_VOLS: document.getElementById('checkv').checked,
-      MOUSEB: parseInt(document.getElementById('mouseb').value, 10),
+      MOUSEB: parseInt(document.getElementById('mouseb').value, 10)
     };
     gameDiv.removeChild(popup);
     game = new Game(gameDiv, stickyNodes, ballOpts);
@@ -1008,7 +1008,7 @@ function main() {
         'img',
         'input',
         'select',
-        'textarea',
+        'textarea'
       ]);
     }
 
