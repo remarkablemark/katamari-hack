@@ -12,8 +12,8 @@ var POSSIBLE_TRANSFORM_PREFIXES = ['-webkit-', '-moz-', '-o-', '-ms-', ''];
 var khFirst = false;
 var BASE_URL = 'https://remarkabl.org/katamari-hack/';
 
-/* When running twice on one page, update pick-uppable nodes instead of
- * creating more.
+/**
+ * When running twice on one page, update pick-uppable nodes instead of creating more.
  */
 if (!window.khNodes) {
   khFirst = true;
@@ -1017,10 +1017,8 @@ function main() {
     }
 
     checkInterval = setInterval(function () {
-      if (window.jQuery) {
-        clearInterval(checkInterval);
-        whenAllLoaded(gameDiv, popup, window.khNodes);
-      }
+      clearInterval(checkInterval);
+      whenAllLoaded(gameDiv, popup, window.khNodes);
     }, 100);
   }, 0);
 }
