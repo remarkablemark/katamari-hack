@@ -922,11 +922,16 @@ function whenAllLoaded(gameDiv, popup, stickyNodes) {
   loading.appendChild(button);
 }
 
+/**
+ * Build popup.
+ *
+ * @param {HTMLElement} gameDiv
+ * @returns {HTMLElement}
+ */
 function buildPopup(gameDiv) {
-  var d = document.createElement('div');
-  var b;
+  var popup = document.createElement('div');
 
-  d.style.cssText =
+  popup.style.cssText =
     '\
 position: fixed;\
 left: 50%;\
@@ -941,7 +946,8 @@ padding:20px;\
 font-size:13px;\
 text-align:left;\
 z-index:501;';
-  d.innerHTML =
+
+  popup.innerHTML =
     '<h1 style="font-size:16pt">\
 <a href="http://kathack.com/" style="color:blue;text-decoration:none;">\
 Katamari!</a></h1>\
@@ -974,15 +980,17 @@ Growth Speed: <input id="vol_mult" type="text" size="6" value="1.0" />\
 Realistic Pickups? <input id="checkv" type="checkbox" checked="checked" />\
 </label></div>\
 <p id="loadingp">Loading!</p>';
-  gameDiv.appendChild(d);
-  d.getElementsByTagName('button')[0].addEventListener(
+
+  gameDiv.appendChild(popup);
+  popup.querySelector('button').addEventListener(
     'click',
     function () {
-      gameDiv.removeChild(d);
+      gameDiv.removeChild(popup);
     },
     true
   );
-  return d;
+
+  return popup;
 }
 
 function main() {
