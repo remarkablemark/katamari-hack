@@ -291,58 +291,69 @@ function StickyNodes() {
     var len;
     var startXI;
     var startYI;
-    var el;
+    var element;
     var go;
-    var off;
-    var w;
-    var h;
     var endXI = Math.floor(docW / GRIDX) + 1;
     var endYI = Math.floor(docH / GRIDY) + 1;
+    var rect;
 
-    /* initialize grid. */
+    // initialize grid
     grid = new Array(endXI);
+
     for (xi = 0; xi < endXI; xi++) {
       grid[xi] = new Array(endYI);
     }
-    /* add nodes into grid. */
+
+    // add nodes into grid
     for (i = 0, len = domNodes.length; i < len; i++) {
-      el = domNodes[i];
-      if (el.khPicked) {
+      element = domNodes[i];
+
+      if (element.khPicked) {
         continue;
       }
-      off = jQuery(el).offset();
-      w = jQuery(el).width();
-      h = jQuery(el).height();
-      go = {
-        el: domNodes[i] /* dom element. */,
-        left: off.left,
-        right: off.left + w,
-        top: off.top,
-        bottom: off.top + h,
-        w: w,
-        h: h,
-        x: off.left + w / 2 /* center x. */,
-        y: off.top + h / 2 /* center y. */,
-        diag: Math.sqrt((w * w + h * h) / 4) /* center to corner */,
 
-        /* these are for removing ourselves from the grid. */
-        arrs: [] /* which arrays we're in (grid[x][y]). */,
-        idxs: [] /* what indexes. */,
+      rect = element.getBoundingClientRect();
+
+      go = {
+        // dom element
+        el: domNodes[i],
+        left: element.offsetLeft,
+        right: element.offsetLeft + rect.width,
+        top: element.offsetTop,
+        bottom: element.offsetTop + rect.height,
+        w: rect.width,
+        h: rect.height,
+        // center x
+        x: element.offsetLeft + rect.width / 2,
+        // center y
+        y: element.offsetTop + rect.height / 2,
+        // center to corner
+        diag: Math.sqrt(
+          (Math.pow(rect.width, 2) + Math.pow(rect.height, 2)) / 4
+        ),
+
+        // these are for removing ourselves from the grid
+        arrs: [], // which arrays we're in (grid[x][y])
+        idxs: [], // what indexes
       };
+
       startXI = Math.floor(go.left / GRIDX);
       startYI = Math.floor(go.top / GRIDY);
       endXI = Math.floor((go.left + go.w) / GRIDX) + 1;
       endYI = Math.floor((go.top + go.h) / GRIDY) + 1;
+
       for (xi = startXI; xi < endXI; xi++) {
         for (yi = startYI; yi < endYI; yi++) {
           if (grid[xi] === undefined) {
             grid[xi] = [];
           }
+
           if (grid[xi][yi] === undefined) {
             grid[xi][yi] = [go];
           } else {
             grid[xi][yi].push(go);
           }
+
           go.arrs.push(grid[xi][yi]);
           go.idxs.push(grid[xi][yi].length - 1);
         }
