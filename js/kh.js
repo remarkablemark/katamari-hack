@@ -2,7 +2,7 @@
  * Copyright Alex Leone, David Nufer, David Truong, 2011-03-11. kathack.com
  *
  * ```js
- * javascript:var i,s,ss=['https://remarkabl.org/katamari-hack/js/kh.js','https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);
+ * javascript:(function(k,h){k=document;h=k.createElement('script');h.src='https://remarkabl.org/katamari-hack/js/kh.js';k.body.appendChild(h)})()
  * ```
  */
 var BORDER_STYLE = '1px solid #bbb';
