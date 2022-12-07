@@ -534,10 +534,11 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
     var offTh = Math.atan2(dy, dx) - th;
     var attX = r * Math.cos(offTh);
     var attY = r * Math.sin(offTh);
-    var el = go.el.cloneNode(true);
-    var go_jel = jQuery(go.el);
+    var element = go.el.cloneNode(true);
+    var style = getComputedStyle(go.el);
+
     var newAtt = {
-      el: el,
+      el: element,
       attX: attX,
       attY: attY,
       attT:
@@ -555,27 +556,30 @@ function PlayerBall(parentNode, stickyNodes, ballOpts, sounds) {
       diag: go.diag,
       removeR: r + go.diag,
       visible: false,
-      display: go_jel.css('display')
+      display: style.getPropertyValue('display')
     };
 
     attached.push(newAtt);
     grow(go);
-    el.style.position = 'absolute';
-    el.style.left = -offLeft + 'px';
-    el.style.top = -offTop + 'px';
-    el.style.setProperty(
+    element.style.position = 'absolute';
+    element.style.left = -offLeft + 'px';
+    element.style.top = -offTop + 'px';
+    element.style.setProperty(
       CSS_TRANSFORM_ORIGIN,
       offLeft + 'px ' + offTop + 'px',
       null
     );
-    el.style.display = 'none';
-    /* copy computed styles from old object. */
-    el.style.color = go_jel.css('color');
-    el.style.textDecoration = go_jel.css('text-decoration');
-    el.style.fontSize = go_jel.css('font-size');
-    el.style.fontWeight = go_jel.css('font-weight');
-    el.khIgnore = true;
-    attachedDiv.appendChild(el);
+    element.style.display = 'none';
+
+    // copy computed styles from old object
+    element.style.color = style.getPropertyValue('color');
+    element.style.textDecoration = style.getPropertyValue('text-decoration');
+    element.style.fontSize = style.getPropertyValue('font-size');
+    element.style.fontWeight = style.getPropertyValue('font-weight');
+    element.khIgnore = true;
+
+    attachedDiv.appendChild(element);
+
     if (sounds) {
       sounds.play_pop();
     }
