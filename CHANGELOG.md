@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/remarkablemark/katamari-hack/compare/v1.0.0...v1.1.0) (2022-12-07)
+
+
+### Features
+
+* add reload button that refreshes sticky nodes in kh.js ([9feb524](https://github.com/remarkablemark/katamari-hack/commit/9feb5244c09aa3964bddf1c305cc511fd037be8a))
+
 ## 1.0.0 (2022-12-07)
 
 
